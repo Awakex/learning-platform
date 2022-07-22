@@ -1,4 +1,6 @@
 import { Roles } from "../types/Roles";
+import TaskConstructorContainer from "../components/task-constructor/task-constructor-container";
+import TaskConstructorPage from "../pages/task-constructor-page";
 
 export const RoutePaths = {
     ROOT: "/",
@@ -8,6 +10,12 @@ export const RoutePaths = {
         MODERATOR: "/moderator",
         ADMINISTRATOR: "/administrator",
         OWNER: "/owner",
+    },
+    CONSTRUCTOR: {
+        ROOT: "/constructor",
+        CREATE: "/constructor/create",
+        EDIT: "/constructor/edit/:id",
+        PLAY: "/constructor/play",
     },
 };
 
@@ -28,4 +36,16 @@ export const RouteComponents = [
         requiredRolePower: Roles.ADMIN,
     },
     { id: 6, path: RoutePaths.APP.OWNER, element: <p>OWNER</p>, requiredRolePower: Roles.OWNER },
+    {
+        id: 7,
+        path: RoutePaths.CONSTRUCTOR.ROOT,
+        element: <TaskConstructorPage />,
+        requiredRolePower: Roles.ADMIN,
+    },
+    {
+        id: 8,
+        path: RoutePaths.CONSTRUCTOR.EDIT,
+        element: <TaskConstructorContainer />,
+        requiredRolePower: Roles.ADMIN,
+    },
 ];

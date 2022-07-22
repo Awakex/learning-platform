@@ -1,0 +1,13 @@
+.questionImage {
+  width: 100%;
+  img {
+    width: auto;
+    max-height: 300px;
+  }
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

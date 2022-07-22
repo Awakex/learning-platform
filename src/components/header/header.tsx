@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Button } from "antd";
-import { logOut, toggleLoginModal } from "../../store/app/AppSlice";
+import { logOut, toggleLoginModal } from "../../store/app/app-slice";
 
 const Header = () => {
     const dispatch = useAppDispatch();

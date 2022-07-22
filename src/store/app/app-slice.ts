@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Roles } from "../../types/Roles";
-import { loadUser, login, registration } from "./AppThunk";
+import { loadUser, login, registration } from "./app-thunk";
 import { User } from "../../types/User";
 
 interface IAppSlice {
@@ -32,6 +32,7 @@ const AppSlice = createSlice({
             localStorage.removeItem("token");
             state.role = Roles.GUEST;
             state.isAuthenticated = false;
+            state.user = undefined;
         },
         toggleLoginModal: (state, action) => {
             state.isLoginModalOpen = action.payload;

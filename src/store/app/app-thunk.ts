@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Request } from "../../core/Request";
+import { Request } from "../../core/request";
 import { LoginDto } from "../../types/LoginDto";
 import { toast } from "react-toastify";
 import { RegistrationDto } from "../../types/RegistrationDto";

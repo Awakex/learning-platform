@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REQUEST_CONFIG } from "./Config";
+import { REQUEST_CONFIG } from "./config";
 import { useAppSelector } from "../hooks/redux";
 import { toast } from "react-toastify";
 
@@ -32,6 +32,7 @@ export const Request = (() => {
             return config;
         },
         (error) => {
+            toast.error(error.data.message || error.message);
             return Promise.reject(error);
         }
     );
@@ -41,7 +42,7 @@ export const Request = (() => {
             return response;
         },
         (error) => {
-            toast.error(error);
+            toast.error(error.response.data.message || error.message);
             return Promise.reject(error);
         }
     );

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Login from "./Login";
+
 import { useAppDispatch } from "../../hooks/redux";
 import { LoginDto } from "../../types/LoginDto";
-import { login, registration } from "../../store/app/AppThunk";
-import Registration from "./Registration";
+import { login, registration } from "../../store/app/app-thunk";
 import { RegistrationDto } from "../../types/RegistrationDto";
+import Registration from "./registration";
+import Login from "./login";
 
 const Auth = () => {
     const [isRegistration, setIsRegistration] = useState(false);

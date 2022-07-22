@@ -5,17 +5,21 @@ interface IProps {
     children: ReactNode;
     isVisible: boolean;
     setIsVisible: (payload: boolean) => void;
+    handleOk?: () => void;
+    okText?: string;
     title: string;
 }
 
-const ModalLayout = ({ isVisible, children, setIsVisible, title }: IProps) => {
+const ModalLayout = ({ isVisible, children, setIsVisible, title, handleOk, okText }: IProps) => {
     return (
         <Modal
             title={title}
             centered
             visible={isVisible}
             onCancel={() => setIsVisible(false)}
-            footer={null}
+            onOk={handleOk}
+            okText={okText}
+            cancelText={"Отмена"}
         >
             {children}
         </Modal>

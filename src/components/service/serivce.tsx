@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import ModalLayout from "../ModalLayout/ModalLayout";
-import { toggleLoginModal } from "../../store/app/AppSlice";
-import Auth from "../Auth/Auth";
+import ModalLayout from "../modal-layout/modal-layout";
+import { toggleLoginModal } from "../../store/app/app-slice";
+import Auth from "../auth/auth";
 import jwtDecode from "jwt-decode";
-import { loadUser } from "../../store/app/AppThunk";
+import { loadUser } from "../../store/app/app-thunk";
 
 const Service = () => {
     const dispatch = useAppDispatch();

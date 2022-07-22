@@ -1,0 +1,14 @@
+.actionButtons {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.5rem;
+  border: 2px dashed lightgray;
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.actionItem {
+  cursor: pointer;
+}

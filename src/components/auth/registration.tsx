@@ -1,7 +1,6 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
 import { toast } from "react-toastify";
-import { LoginDto } from "../../types/LoginDto";
 import { RegistrationDto } from "../../types/RegistrationDto";
 import { useAppSelector } from "../../hooks/redux";
 

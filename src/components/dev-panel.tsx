@@ -23,6 +23,7 @@ const DevPanel = () => {
                 <Link to={RoutePaths.APP.MODERATOR}>MODERATOR</Link>
                 <Link to={RoutePaths.APP.ADMINISTRATOR}>ADMINISTRATOR</Link>
                 <Link to={RoutePaths.APP.OWNER}>OWNER</Link>
+                <Link to={RoutePaths.CONSTRUCTOR.ROOT}>TASK CREATOR</Link>
             </div>
         </div>
     );
