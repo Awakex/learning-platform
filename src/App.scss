@@ -1,0 +1,35 @@
+@import '~antd/dist/antd.dark.css';
+
+body {
+  p {
+    color: white;
+  }
+}
+
+.devpanel {
+  display: flex;
+  padding: 20px;
+  box-shadow: 0 0 5px lightblue;
+  div {
+    border: 1px dashed lightgray;
+    padding: 10px;
+    margin-right: 10px;
+  }
+  p, a {
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+  button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.link {
+  cursor: pointer;
+  color: #177ddc;
+}
+
+.text-center {
+  text-align: center;
+}

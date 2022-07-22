@@ -1,58 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.scss";
+import { useAppSelector } from "./hooks/redux";
+import { RouteComponents } from "./routers";
+import { PrivateRoute } from "./components/PrivateRoute";
+import DevPanel from "./components/DevPanel";
+import Page404 from "./pages/404";
+import { ToastContainer } from "react-toastify";
+import Header from "./components/Header/Header";
+import Service from "./components/Service/Serivce";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
-}
+export const App = () => {
+    const { role } = useAppSelector((state) => state.app);
 
-export default App;
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Service />
+                <Header />
+                <DevPanel />
+                <Routes>
+                    {RouteComponents.map((route) => (
+                        <Route
+                            key={route.id}
+                            path={route.path}
+                            element={
+                                <PrivateRoute
+                                    outlet={route.element}
+                                    requiredRolePower={route.requiredRolePower}
+                                    userRolePower={role}
+                                />
+                            }
+                        />
+                    ))}
+
+                    <Route path="*" element={<Page404 />} />
+                </Routes>
+            </BrowserRouter>
+
+            <ToastContainer />
+        </div>
+    );
+};
