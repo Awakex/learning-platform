@@ -1,5 +1,6 @@
 .questionImage {
   width: 100%;
+  margin-bottom: 10px;
   img {
     width: auto;
     max-height: 300px;
@@ -10,4 +11,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }

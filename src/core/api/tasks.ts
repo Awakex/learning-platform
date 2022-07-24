@@ -17,4 +17,7 @@ export const TasksAPI = {
         formData.append("file", file);
         return Request.put(`/tasks/${taskId}/attach-image`, formData);
     },
+    deleteImage: (taskId: string) => {
+        return Request.delete(`/tasks/${taskId}/image`);
+    },
 };

@@ -12,9 +12,7 @@ const TaskQuestion = memo(({ text, isEdit, handleEdit }: IProps) => {
     return (
         <div className={styles.question}>
             <p className={styles.questionText}>{text ? text : "Нет вопроса"}</p>
-            {isEdit && (
-                <ActionButtons handleEdit={handleEdit} handleDelete={() => console.log("delete")} />
-            )}
+            {isEdit && <ActionButtons handleEdit={handleEdit} />}
         </div>
     );
 });

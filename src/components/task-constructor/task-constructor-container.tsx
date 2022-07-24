@@ -4,6 +4,7 @@ import TaskConstructor from "./task-constructor";
 import { TasksAPI } from "../../core/api/tasks";
 import { toast } from "react-toastify";
 import { ITask } from "../../types/ITask";
+import { AnswersTypeEnum } from "../../types/AnswersTypeEnum";
 
 const TaskConstructorContainer = () => {
     let { id } = useParams();
@@ -11,9 +12,9 @@ const TaskConstructorContainer = () => {
     const [isTaskLoading, setIsTaskLoading] = useState(false);
     const [task, setTask] = useState<ITask | undefined>(undefined);
     const [isQuestionTextModalOpen, setIsQuestionTextModalOpen] = useState(false);
+    const [isEdit, setIsEdit] = useState(true);
 
     useEffect(() => {
-        console.log(id);
         getTask();
     }, [id]);
 
@@ -56,15 +57,43 @@ const TaskConstructorContainer = () => {
             .finally(() => setIsTaskLoading(false));
     };
 
+    const handleDeleteQuestionImage = () => {
+        if (!id) return;
+
+        setIsTaskLoading(true);
+        TasksAPI.deleteImage(id)
+            .then((response) => {
+                setTask(response.data);
+            })
+            .finally(() => setIsTaskLoading(false));
+    };
+
+    const handleSaveAnswersType = (type: AnswersTypeEnum) => {
+        if (!id || !task) return;
+
+        let dto: ITask = {
+            ...task,
+            answersType: type,
+        };
+
+        setIsTaskLoading(true);
+        TasksAPI.updateTask(id, dto)
+            .then((response) => setTask(response.data))
+            .finally(() => setIsTaskLoading(false));
+    };
+
     return (
         <TaskConstructor
+            task={task}
+            isEdit={isEdit}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
-            task={task}
             isQuestionTextModalOpen={isQuestionTextModalOpen}
             setIsQuestionTextModalOpen={setIsQuestionTextModalOpen}
             handleEditQuestionText={handleEditQuestionText}
             handleLoadQuestionImage={handleLoadQuestionImage}
+            handleDeleteQuestionImage={handleDeleteQuestionImage}
+            handleSaveAnswersType={handleSaveAnswersType}
         />
     );
 };
