@@ -1,6 +1,7 @@
 import { Roles } from "../types/Roles";
 import TaskConstructorContainer from "../components/task-constructor/task-constructor-container";
-import TaskConstructorPage from "../pages/task-constructor-page";
+import TaskCreate from "../components/task-constructor/task-create/task-create";
+import SetsTable from "../components/sets-table/sets-table";
 
 export const RoutePaths = {
     ROOT: "/",
@@ -16,6 +17,9 @@ export const RoutePaths = {
         CREATE: "/constructor/create",
         EDIT: "/constructor/edit/:id",
         PLAY: "/constructor/play",
+    },
+    SETS: {
+        ROOT: "/sets",
     },
 };
 
@@ -39,13 +43,19 @@ export const RouteComponents = [
     {
         id: 7,
         path: RoutePaths.CONSTRUCTOR.ROOT,
-        element: <TaskConstructorPage />,
+        element: <TaskCreate />,
         requiredRolePower: Roles.ADMIN,
     },
     {
         id: 8,
         path: RoutePaths.CONSTRUCTOR.EDIT,
         element: <TaskConstructorContainer />,
+        requiredRolePower: Roles.ADMIN,
+    },
+    {
+        id: 9,
+        path: RoutePaths.SETS.ROOT,
+        element: <SetsTable />,
         requiredRolePower: Roles.ADMIN,
     },
 ];

@@ -134,7 +134,7 @@ const TaskConstructorContainer = () => {
 
         setIsTaskLoading(true);
         let dto: CorrectAnswerDto = {
-            answers: JSON.stringify(selectedAnswersIds),
+            answers: selectedAnswersIds,
         };
 
         AnswersAPI.createCorrectAnswers(task._id, dto)
@@ -147,12 +147,12 @@ const TaskConstructorContainer = () => {
 
         setIsTaskLoading(true);
         let dto: CorrectAnswerDto = {
-            answers: JSON.stringify(selectedAnswersIds),
+            answers: selectedAnswersIds,
         };
 
         AnswersAPI.checkCorrectAnswers(task._id, dto)
             .then((response) => {
-                if (response.data) {
+                if (response.data.status) {
                     toast.success("Верный ответ");
                 } else {
                     toast.error("Неверный ответ");

@@ -1,3 +1,3 @@
 export interface CorrectAnswerDto {
-    answers: string;
+    answers: string[];
 }
