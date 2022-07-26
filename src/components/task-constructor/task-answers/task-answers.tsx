@@ -1,61 +1,75 @@
-import React, { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
-import { Button, Select } from "antd";
-import { ANSWERS_TYPE } from "../../../constants/answers-type";
+import React, { useState } from "react";
 import { AnswersTypeEnum } from "../../../types/AnswersTypeEnum";
-
-const { Option } = Select;
+import { IAnswer } from "../../../types/IAnswer";
+import TaskAnswerClassicText from "./task-answer-classic-text/task-answer-classic-text";
+import styles from "./styles.module.scss";
+import { Button } from "antd";
+import TextModal from "../../text-modal/text-modal";
 
 interface IProps {
-    handleSaveAnswersType: (type: AnswersTypeEnum) => void;
-    taskType?: AnswersTypeEnum;
+    answersType: AnswersTypeEnum;
+    answers: IAnswer[];
+    isEdit: boolean;
+    handleSaveAnswerContent: (content: string) => void;
+    handleSelectAnswer: (answerId: string) => void;
+    selectedAnswersIds: string[];
 }
 
-const TaskAnswers = ({ handleSaveAnswersType, taskType }: IProps) => {
-    const [answers, setAnswers] = useState<any[]>([]);
-    const [selectedAnswersType, setSelectedAnswersType] = useState(ANSWERS_TYPE.CLASSIC_TEXT.value);
+const TaskAnswers = ({
+    answers,
+    answersType,
+    isEdit,
+    handleSaveAnswerContent,
+    handleSelectAnswer,
+    selectedAnswersIds,
+}: IProps) => {
+    const [isTextModalOpen, setIsTextModalOpen] = useState(false);
 
-    useEffect(() => {
-        console.log(selectedAnswersType);
-    }, [selectedAnswersType]);
+    const handleAddAnswer = () => {
+        switch (answersType) {
+            case AnswersTypeEnum.CLASSIC_TEXT:
+                setIsTextModalOpen(true);
+                return;
+        }
+    };
+
+    const handleSave = (content: string) => {
+        setIsTextModalOpen(false);
+        handleSaveAnswerContent(content);
+    };
 
     return (
         <div className={styles.taskAnswers}>
-            {!!answers.length ? (
-                <React.Fragment></React.Fragment>
-            ) : (
-                <div>
-                    {taskType ? (
-                        `Выбран тип: ${AnswersTypeEnum[taskType]}`
-                    ) : (
-                        <React.Fragment>
-                            <Select
-                                defaultValue={selectedAnswersType}
-                                onChange={setSelectedAnswersType}
-                                size={"middle"}
-                            >
-                                <Option value={ANSWERS_TYPE.CLASSIC_TEXT.value}>
-                                    {ANSWERS_TYPE.CLASSIC_TEXT.label}
-                                </Option>
-                                <Option value={ANSWERS_TYPE.CLASSIC_IMAGE.value}>
-                                    {ANSWERS_TYPE.CLASSIC_IMAGE.label}
-                                </Option>
-                            </Select>
+            {isEdit && answers?.length < 6 && (
+                <React.Fragment>
+                    <TextModal
+                        isVisible={isTextModalOpen}
+                        setIsVisible={setIsTextModalOpen}
+                        handleSave={handleSave}
+                        title={"Текстовый ответ"}
+                    />
 
-                            <Button
-                                type={"primary"}
-                                style={{ marginLeft: 10 }}
-                                size={"middle"}
-                                onClick={() => handleSaveAnswersType(selectedAnswersType)}
-                            >
-                                Выбрать
-                            </Button>
-                        </React.Fragment>
-                    )}
-
-                    <div></div>
-                </div>
+                    <Button type={"primary"} onClick={handleAddAnswer} style={{ marginBottom: 10 }}>
+                        Добавить ответ
+                    </Button>
+                </React.Fragment>
             )}
+            <div className={styles.answers}>
+                {answers?.map((answer) => {
+                    switch (answersType) {
+                        case AnswersTypeEnum.CLASSIC_TEXT:
+                            return (
+                                <TaskAnswerClassicText
+                                    key={answer._id}
+                                    id={answer._id}
+                                    content={answer.content}
+                                    isActive={selectedAnswersIds.includes(answer._id)}
+                                    handleClick={(id) => handleSelectAnswer(id)}
+                                />
+                            );
+                    }
+                })}
+            </div>
         </div>
     );
 };

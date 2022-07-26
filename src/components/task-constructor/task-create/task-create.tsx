@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 import { Button, Select } from "antd";
-import { TasksAPI } from "../../core/api/tasks";
-import { CreateTaskDto } from "../../types/CreateTaskDto";
+import { TasksAPI } from "../../../core/api/tasks";
+import { CreateTaskDto } from "../../../dtos/CreateTaskDto";
 import { useNavigate } from "react-router-dom";
-import { RoutePaths } from "../../routers";
+import { RoutePaths } from "../../../routers";
+import TasksTable from "../../tasks-table/tasks-table";
 const { Option } = Select;
 
 const TaskCreate = () => {
@@ -36,13 +37,16 @@ const TaskCreate = () => {
             </Select>
 
             <Button
-                style={{ marginLeft: 10 }}
+                style={{ marginLeft: 10, marginBottom: 20 }}
                 onClick={handleTaskCreate}
                 type={"primary"}
                 loading={isLoading}
             >
                 Создать
             </Button>
+
+            <hr />
+            <TasksTable />
         </div>
     );
 };

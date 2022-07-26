@@ -17,7 +17,7 @@ const TaskStepper = memo(({ currentStep, setCurrentStep }: IProps) => {
         >
             <Step status="process" title="Создание" />
             <Step status="process" title="Проверка" />
-            <Step status="process" title="Загрузка" />
+            <Step status="process" title="Настройка" />
         </Steps>
     );
 });

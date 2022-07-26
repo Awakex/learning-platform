@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { useAppDispatch } from "../../hooks/redux";
-import { LoginDto } from "../../types/LoginDto";
+import { LoginDto } from "../../dtos/LoginDto";
 import { login, registration } from "../../store/app/app-thunk";
-import { RegistrationDto } from "../../types/RegistrationDto";
+import { RegistrationDto } from "../../dtos/RegistrationDto";
 import Registration from "./registration";
 import Login from "./login";
 

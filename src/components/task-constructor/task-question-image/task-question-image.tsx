@@ -14,8 +14,8 @@ interface IProps {
 
 const TaskQuestionImage = ({
     imageName,
-    handleLoadQuestionImage,
     isEdit,
+    handleLoadQuestionImage,
     handleDeleteQuestionImage,
 }: IProps) => {
     return (

@@ -11,13 +11,15 @@ interface IProps {
     rows?: number;
 }
 
-const TextEditModal = ({ handleSave, text, isVisible, setIsVisible, title, rows = 4 }: IProps) => {
+const TextModal = ({ handleSave, text, isVisible, setIsVisible, title, rows = 4 }: IProps) => {
     const [value, setValue] = useState("");
 
     useEffect(() => {
         if (text) {
             setValue(text);
         }
+
+        return () => setValue("");
     }, [isVisible]);
 
     return (
@@ -33,4 +35,4 @@ const TextEditModal = ({ handleSave, text, isVisible, setIsVisible, title, rows 
     );
 };
 
-export default TextEditModal;
+export default TextModal;

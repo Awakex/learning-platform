@@ -1,4 +1,4 @@
-import { CreateTaskDto } from "../../types/CreateTaskDto";
+import { CreateTaskDto } from "../../dtos/CreateTaskDto";
 import { ITask } from "../../types/ITask";
 import { Request } from "../request";
 
@@ -8,6 +8,9 @@ export const TasksAPI = {
     },
     getTask: (taskId: string) => {
         return Request.get(`/tasks/${taskId}`);
+    },
+    getTasks: () => {
+        return Request.get(`/tasks`);
     },
     updateTask: (taskId: string, dto: ITask) => {
         return Request.put(`/tasks/${taskId}`, dto);
@@ -19,5 +22,8 @@ export const TasksAPI = {
     },
     deleteImage: (taskId: string) => {
         return Request.delete(`/tasks/${taskId}/image`);
+    },
+    saveSettings: (taskId: string, dto: TaskSettingsDto) => {
+        return Request.post(`/tasks/${taskId}/settings`, dto);
     },
 };

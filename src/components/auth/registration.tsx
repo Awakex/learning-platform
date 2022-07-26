@@ -1,7 +1,7 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
 import { toast } from "react-toastify";
-import { RegistrationDto } from "../../types/RegistrationDto";
+import { RegistrationDto } from "../../dtos/RegistrationDto";
 import { useAppSelector } from "../../hooks/redux";
 
 interface IProps {

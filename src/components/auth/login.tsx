@@ -1,7 +1,7 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
 import { toast } from "react-toastify";
-import { LoginDto } from "../../types/LoginDto";
+import { LoginDto } from "../../dtos/LoginDto";
 import { useAppSelector } from "../../hooks/redux";
 
 interface IProps {

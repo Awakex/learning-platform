@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Request } from "../../core/request";
-import { LoginDto } from "../../types/LoginDto";
+import { LoginDto } from "../../dtos/LoginDto";
 import { toast } from "react-toastify";
-import { RegistrationDto } from "../../types/RegistrationDto";
+import { RegistrationDto } from "../../dtos/RegistrationDto";
 
 export const login = createAsyncThunk("/auth/login", async (loginDto: LoginDto, thunkAPI) => {
     try {
