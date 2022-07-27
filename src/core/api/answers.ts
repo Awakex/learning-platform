@@ -13,6 +13,10 @@ export const AnswersAPI = {
         return Request.post(`/answers/${questionId}/correct-answers`, answers);
     },
     checkCorrectAnswers: (questionId: string, answers: CorrectAnswerDto) => {
+        if (!questionId) {
+            return Promise.reject("Не указан ID");
+        }
+
         return Request.post(`/answers/${questionId}/check-correct-answers`, answers);
     },
 };

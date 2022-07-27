@@ -6,7 +6,11 @@ export const TasksAPI = {
     createTask: (dto: CreateTaskDto) => {
         return Request.post(`/tasks/create`, dto);
     },
-    getTask: (taskId: string) => {
+    getTask: (taskId?: string) => {
+        if (!taskId) {
+            return Promise.reject("Не указан ID");
+        }
+
         return Request.get(`/tasks/${taskId}`);
     },
     getTasks: (withSettings: boolean = false) => {

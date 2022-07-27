@@ -3,6 +3,8 @@ import TaskConstructorContainer from "../components/tasks/task-constructor-conta
 import TaskCreate from "../components/tasks/task-create/task-create";
 import SetsCreate from "../components/sets/sets-create";
 import SetConstructorContainer from "../components/sets/set-constructor-container";
+import Player from "../components/player/player";
+import { TASKS_CONFIG } from "../components/tasks/config/tasks-config";
 
 export const RoutePaths = {
     ROOT: "/",
@@ -13,15 +15,19 @@ export const RoutePaths = {
         ADMINISTRATOR: "/administrator",
         OWNER: "/owner",
     },
-    CONSTRUCTOR: {
-        ROOT: "/constructor",
-        CREATE: "/constructor/create",
-        EDIT: "/constructor/edit/:id",
-        PLAY: "/constructor/play",
+    TASKS: {
+        ROOT: "/tasks",
+        CREATE: "/tasks/create",
+        EDIT: "/tasks/edit/:id",
+        PLAY: "/tasks/play",
     },
     SETS: {
         ROOT: "/sets",
         EDIT: "/sets/edit/:id",
+    },
+    PLAYER: {
+        ROOT: "/player",
+        PLAY_SET: "/play/:setId",
     },
 };
 
@@ -44,14 +50,14 @@ export const RouteComponents = [
     { id: 6, path: RoutePaths.APP.OWNER, element: <p>OWNER</p>, requiredRolePower: Roles.OWNER },
     {
         id: 7,
-        path: RoutePaths.CONSTRUCTOR.ROOT,
+        path: RoutePaths.TASKS.ROOT,
         element: <TaskCreate />,
         requiredRolePower: Roles.ADMIN,
     },
     {
         id: 8,
-        path: RoutePaths.CONSTRUCTOR.EDIT,
-        element: <TaskConstructorContainer />,
+        path: RoutePaths.TASKS.EDIT,
+        element: <TaskConstructorContainer config={TASKS_CONFIG} />,
         requiredRolePower: Roles.ADMIN,
     },
     {
@@ -65,5 +71,17 @@ export const RouteComponents = [
         path: RoutePaths.SETS.EDIT,
         element: <SetConstructorContainer />,
         requiredRolePower: Roles.ADMIN,
+    },
+    {
+        id: 11,
+        path: RoutePaths.PLAYER.ROOT,
+        element: <Player />,
+        requiredRolePower: Roles.USER,
+    },
+    {
+        id: 12,
+        path: RoutePaths.PLAYER.PLAY_SET,
+        element: <Player />,
+        requiredRolePower: Roles.USER,
     },
 ];

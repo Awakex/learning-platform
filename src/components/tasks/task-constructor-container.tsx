@@ -11,7 +11,12 @@ import { CorrectAnswerDto } from "../../dtos/CorrectAnswerDto";
 import { toast } from "react-toastify";
 import { ITaskSettings } from "../../types/ITaskSettings";
 
-const TaskConstructorContainer = () => {
+interface IProps {
+    config: ITaskConstructorConfig;
+    taskIdForLoad?: string;
+}
+
+const TaskConstructorContainer = ({ config, taskIdForLoad }: IProps) => {
     let { id } = useParams();
     const [currentStep, setCurrentStep] = useState(0);
     const [isTaskLoading, setIsTaskLoading] = useState(false);
@@ -24,17 +29,21 @@ const TaskConstructorContainer = () => {
 
     useEffect(() => {
         getTask();
-    }, [id]);
+    }, [id, taskIdForLoad]);
 
     useEffect(() => {
-        setIsEdit(currentStep === 0);
-    }, [currentStep]);
+        if (config.isCreate) {
+            setIsEdit(currentStep === 0);
+        }
+    }, [currentStep, config]);
+
+    useEffect(() => {
+        setIsEdit(config.isCreate);
+    }, [config]);
 
     const getTask = () => {
-        if (!id) return;
-
         setIsTaskLoading(true);
-        TasksAPI.getTask(id)
+        TasksAPI.getTask(taskIdForLoad || id)
             .then((response) => {
                 setTask(response.data);
                 setSettings(response.data.settings);
@@ -71,10 +80,10 @@ const TaskConstructorContainer = () => {
     };
 
     const handleLoadQuestionImage = (file: File) => {
-        if (!id) return;
+        if (!task?._id) return;
 
         setIsTaskLoading(true);
-        TasksAPI.attachImage(id, file)
+        TasksAPI.attachImage(task?._id, file)
             .then((response) => {
                 setTask(response.data);
             })
@@ -107,14 +116,14 @@ const TaskConstructorContainer = () => {
     };
 
     const handleSaveAnswerContent = (content: string) => {
-        if (!id || !task?._id) return;
+        if (!id || !task) return;
 
         let answerDto: AnswerDto = {
             content,
         };
 
         setIsTaskLoading(true);
-        AnswersAPI.createAnswer(task._id, answerDto)
+        AnswersAPI.createAnswer(id, answerDto)
             .then(() => {
                 getAnswers(task._id);
             })
@@ -130,42 +139,41 @@ const TaskConstructorContainer = () => {
     };
 
     const handleSaveAnswers = () => {
-        if (!id || !task?._id) return;
+        if (!id || !task) return;
 
         setIsTaskLoading(true);
         let dto: CorrectAnswerDto = {
             answers: selectedAnswersIds,
         };
 
-        AnswersAPI.createCorrectAnswers(task._id, dto)
+        AnswersAPI.createCorrectAnswers(id, dto)
             .then(() => toast.success("Правильные ответы сохранены"))
             .finally(() => setIsTaskLoading(false));
     };
 
     const handleCheckAnswers = () => {
-        if (!id || !task?._id) return;
-
         setIsTaskLoading(true);
         let dto: CorrectAnswerDto = {
             answers: selectedAnswersIds,
         };
 
-        AnswersAPI.checkCorrectAnswers(task._id, dto)
+        AnswersAPI.checkCorrectAnswers(taskIdForLoad || id || "", dto)
             .then((response) => {
                 if (response.data.status) {
                     toast.success("Верный ответ");
                 } else {
                     toast.error("Неверный ответ");
                 }
+                setSelectedAnswersIds([]);
             })
             .finally(() => setIsTaskLoading(false));
     };
 
     const handleSaveSettings = (payload: TaskSettingsDto) => {
-        if (!id || !task?._id) return;
+        if (!id) return;
 
         setIsTaskLoading(true);
-        TasksAPI.saveSettings(task._id, payload)
+        TasksAPI.saveSettings(id, payload)
             .then((response) => {
                 setSettings(response.data);
                 toast.success("Настройки сохранены");
@@ -176,6 +184,7 @@ const TaskConstructorContainer = () => {
     return (
         <TaskConstructor
             task={task}
+            config={config}
             settings={settings}
             isEdit={isEdit}
             currentStep={currentStep}

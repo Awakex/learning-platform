@@ -68,7 +68,7 @@ const TaskTransfer = ({ className, listStyle, handleSave, set }: IProps) => {
                 type={"primary"}
                 style={{ marginTop: 20, width: 200 }}
                 size={"large"}
-                disabled={set?.tasks?.toString() === targetKeys.toString()}
+                disabled={false}
             >
                 Сохранить
             </Button>

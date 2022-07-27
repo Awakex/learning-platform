@@ -26,7 +26,7 @@ const TasksTable = () => {
                 title="Действия"
                 render={(_: any, record: any) => (
                     <Space size="middle">
-                        <Link to={RoutePaths.CONSTRUCTOR.EDIT.replace(":id", record._id)}>
+                        <Link to={RoutePaths.TASKS.EDIT.replace(":id", record._id)}>
                             Редактировать
                         </Link>
                     </Space>

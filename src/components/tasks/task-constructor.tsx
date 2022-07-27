@@ -32,10 +32,12 @@ interface IProps {
     handleSaveSettings: (payload: TaskSettingsDto) => void;
     selectedAnswersIds: string[];
     answers: IAnswer[];
+    config: ITaskConstructorConfig;
 }
 
 const TaskConstructor = ({
     task,
+    config,
     isEdit,
     answers,
     settings,
@@ -66,7 +68,9 @@ const TaskConstructor = ({
 
             <div className={styles.taskConstructor}>
                 <div className={styles.taskHeader}>
-                    <TaskStepper currentStep={currentStep} setCurrentStep={setCurrentStep} />
+                    {config.isCreate && (
+                        <TaskStepper currentStep={currentStep} setCurrentStep={setCurrentStep} />
+                    )}
                 </div>
 
                 <div className={styles.taskBody}>
@@ -78,12 +82,14 @@ const TaskConstructor = ({
                                 handleEdit={() => setIsQuestionTextModalOpen(true)}
                             />
 
-                            <TaskQuestionImage
-                                imageName={task?.image}
-                                isEdit={isEdit}
-                                handleLoadQuestionImage={handleLoadQuestionImage}
-                                handleDeleteQuestionImage={handleDeleteQuestionImage}
-                            />
+                            {(isEdit || task?.image) && (
+                                <TaskQuestionImage
+                                    imageName={task?.image}
+                                    isEdit={isEdit}
+                                    handleLoadQuestionImage={handleLoadQuestionImage}
+                                    handleDeleteQuestionImage={handleDeleteQuestionImage}
+                                />
+                            )}
 
                             {isEdit && (
                                 <TaskSelectAnswersType

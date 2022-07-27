@@ -23,7 +23,7 @@ const TaskCreate = () => {
         TasksAPI.createTask(dto)
             .then((response) => {
                 setIsLoading(false);
-                navigate(RoutePaths.CONSTRUCTOR.EDIT.replace(":id", response.data._id));
+                navigate(RoutePaths.TASKS.EDIT.replace(":id", response.data._id));
             })
             .catch((e) => {
                 setIsLoading(false);

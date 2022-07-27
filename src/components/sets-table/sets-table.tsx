@@ -29,6 +29,9 @@ const SetsTable = () => {
                         <Link to={RoutePaths.SETS.EDIT.replace(":id", record._id)}>
                             Редактировать
                         </Link>
+                        <Link to={RoutePaths.PLAYER.PLAY_SET.replace(":setId", record._id)}>
+                            Играть
+                        </Link>
                     </Space>
                 )}
             />
