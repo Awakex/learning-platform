@@ -3,6 +3,7 @@ import { Space, Table } from "antd";
 import Column from "antd/lib/table/Column";
 import { Link } from "react-router-dom";
 import { SetsAPI } from "../../core/api/sets";
+import { RoutePaths } from "../../routers";
 
 const SetsTable = () => {
     const [dataSource, setDataSource] = useState(undefined);
@@ -25,7 +26,9 @@ const SetsTable = () => {
                 title="Действия"
                 render={(_: any, record: any) => (
                     <Space size="middle">
-                        <Link to={"/sets"}>Редактировать</Link>
+                        <Link to={RoutePaths.SETS.EDIT.replace(":id", record._id)}>
+                            Редактировать
+                        </Link>
                     </Space>
                 )}
             />

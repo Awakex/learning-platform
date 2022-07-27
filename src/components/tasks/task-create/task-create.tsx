@@ -6,16 +6,18 @@ import { CreateTaskDto } from "../../../dtos/CreateTaskDto";
 import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "../../../routers";
 import TasksTable from "../../tasks-table/tasks-table";
+import { TASK_TYPES } from "../../../types/TaskTypes";
+
 const { Option } = Select;
 
 const TaskCreate = () => {
     let navigate = useNavigate();
-    const [selectTaskType, setSelectTaskType] = useState("classic");
+    const [selectTaskType, setSelectTaskType] = useState<TASK_TYPES>("ClassicTask");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleTaskCreate = () => {
         let dto: CreateTaskDto = {
-            type: "ClassicTask",
+            type: selectTaskType,
         };
         setIsLoading(true);
         TasksAPI.createTask(dto)
@@ -25,15 +27,14 @@ const TaskCreate = () => {
             })
             .catch((e) => {
                 setIsLoading(false);
-                console.log(e);
             });
     };
 
     return (
         <div>
             <h2>Создание задания</h2>
-            <Select defaultValue="classic" onChange={setSelectTaskType}>
-                <Option value="classic">Классическое</Option>
+            <Select defaultValue={selectTaskType} onChange={setSelectTaskType}>
+                <Option value="ClassicTask">Классическое</Option>
             </Select>
 
             <Button
@@ -45,7 +46,7 @@ const TaskCreate = () => {
                 Создать
             </Button>
 
-            <hr />
+            <hr style={{ marginBottom: 20 }} />
             <TasksTable />
         </div>
     );

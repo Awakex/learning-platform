@@ -1,7 +1,8 @@
 import { Roles } from "../types/Roles";
-import TaskConstructorContainer from "../components/task-constructor/task-constructor-container";
-import TaskCreate from "../components/task-constructor/task-create/task-create";
-import SetsTable from "../components/sets-table/sets-table";
+import TaskConstructorContainer from "../components/tasks/task-constructor-container";
+import TaskCreate from "../components/tasks/task-create/task-create";
+import SetsCreate from "../components/sets/sets-create";
+import SetConstructorContainer from "../components/sets/set-constructor-container";
 
 export const RoutePaths = {
     ROOT: "/",
@@ -20,6 +21,7 @@ export const RoutePaths = {
     },
     SETS: {
         ROOT: "/sets",
+        EDIT: "/sets/edit/:id",
     },
 };
 
@@ -55,7 +57,13 @@ export const RouteComponents = [
     {
         id: 9,
         path: RoutePaths.SETS.ROOT,
-        element: <SetsTable />,
+        element: <SetsCreate />,
+        requiredRolePower: Roles.ADMIN,
+    },
+    {
+        id: 10,
+        path: RoutePaths.SETS.EDIT,
+        element: <SetConstructorContainer />,
         requiredRolePower: Roles.ADMIN,
     },
 ];

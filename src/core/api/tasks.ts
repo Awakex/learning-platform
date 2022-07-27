@@ -9,8 +9,8 @@ export const TasksAPI = {
     getTask: (taskId: string) => {
         return Request.get(`/tasks/${taskId}`);
     },
-    getTasks: () => {
-        return Request.get(`/tasks`);
+    getTasks: (withSettings: boolean = false) => {
+        return Request.get(`/tasks?withSettings=${withSettings}`);
     },
     updateTask: (taskId: string, dto: ITask) => {
         return Request.put(`/tasks/${taskId}`, dto);

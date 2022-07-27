@@ -12,18 +12,27 @@ const TaskSettings = ({ handleSaveSettings, settings }: IProps) => {
     return (
         <Form
             name="basic"
-            labelCol={{ span: 7 }}
-            wrapperCol={{ span: 12 }}
             initialValues={{ remember: true }}
             onFinish={handleSaveSettings}
             autoComplete="off"
             className={styles.TaskSettings}
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
         >
             <Form.Item
                 label="Рейтинг"
                 name="rating"
-                rules={[{ required: true, message: "Please input your username!" }]}
+                rules={[{ required: true, message: "Заполните рейтинг" }]}
                 initialValue={settings?.rating}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                label="Идентификатор поиска"
+                name="search"
+                rules={[{ required: true, message: "Заполните идентификатор поиска" }]}
+                initialValue={settings?.search}
             >
                 <Input />
             </Form.Item>

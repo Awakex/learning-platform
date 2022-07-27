@@ -8,10 +8,19 @@ interface IProps {
     handleSave: (text: string) => void;
     text?: string;
     title: string;
+    description?: string;
     rows?: number;
 }
 
-const TextModal = ({ handleSave, text, isVisible, setIsVisible, title, rows = 4 }: IProps) => {
+const TextModal = ({
+    handleSave,
+    text,
+    isVisible,
+    setIsVisible,
+    title,
+    rows = 4,
+    description,
+}: IProps) => {
     const [value, setValue] = useState("");
 
     useEffect(() => {
@@ -30,7 +39,12 @@ const TextModal = ({ handleSave, text, isVisible, setIsVisible, title, rows = 4 
             handleOk={() => handleSave(value)}
             okText={"Сохранить"}
         >
-            <TextArea rows={rows} value={value} onChange={(e) => setValue(e.target.value)} />
+            <TextArea
+                rows={rows}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder={description}
+            />
         </ModalLayout>
     );
 };

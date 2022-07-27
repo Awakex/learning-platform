@@ -1,0 +1,32 @@
+.SetConstructorWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.SetConstructor {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px white;
+  width: 900px;
+  min-height: 400px;
+}
+
+.SetConstructorForm {
+  margin-top: 20px;
+  width: 80%;
+}
+
+.SetConstructorButton {
+  width: 200px;
+}
+
+.TaskTransfer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}

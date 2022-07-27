@@ -36,11 +36,11 @@ const TaskConstructorContainer = () => {
         setIsTaskLoading(true);
         TasksAPI.getTask(id)
             .then((response) => {
-                setTask(response.data.task);
+                setTask(response.data);
                 setSettings(response.data.settings);
 
-                if (response.data.task._id) {
-                    getAnswers(response.data.task._id);
+                if (response.data._id) {
+                    getAnswers(response.data._id);
                 }
             })
             .finally(() => setIsTaskLoading(false));
