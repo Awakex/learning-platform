@@ -42,6 +42,8 @@ const Service = () => {
                 localStorage.removeItem("token");
                 dispatch(toggleAppLoading(false));
             }
+        } else {
+            dispatch(toggleAppLoading(false));
         }
     }, [isAuthenticated]);
 

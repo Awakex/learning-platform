@@ -12,11 +12,14 @@ export const AnswersAPI = {
     createCorrectAnswers: (questionId: string, answers: CorrectAnswerDto) => {
         return Request.post(`/answers/${questionId}/correct-answers`, answers);
     },
-    checkCorrectAnswers: (questionId: string, answers: CorrectAnswerDto) => {
+    checkCorrectAnswers: (questionId: string, answers: CorrectAnswerDto, setId?: string) => {
         if (!questionId) {
             return Promise.reject("Не указан ID");
         }
 
-        return Request.post(`/answers/${questionId}/check-correct-answers`, answers);
+        return Request.post(
+            `/answers/${questionId}/check-correct-answers${setId ? `?setId=${setId}` : ""}`,
+            answers
+        );
     },
 };

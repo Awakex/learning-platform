@@ -6,6 +6,7 @@ import { SetsAPI } from "../../core/api/sets";
 import { Spin } from "antd";
 import { CreateSetDto } from "../../dtos/CreateSetDto";
 import { toast } from "react-toastify";
+import { IReward } from "../../types/IReward";
 
 const SetConstructorContainer = () => {
     let { id } = useParams();
@@ -55,6 +56,16 @@ const SetConstructorContainer = () => {
             .finally(() => setIsLoading(false));
     };
 
+    const handleAddRewardItem = (reward: IReward) => {
+        if (!id) return;
+
+        SetsAPI.attachItem(id, reward)
+            .then((response) => {
+                setSet(response.data);
+            })
+            .finally(() => setIsLoading(false));
+    };
+
     return isLoading ? (
         <Spin tip="Загрузка..." size={"large"} />
     ) : (
@@ -68,6 +79,7 @@ const SetConstructorContainer = () => {
                     currentStep={currentStep}
                     setCurrentStep={setCurrentStep}
                     handleSaveInformation={handleSaveInformation}
+                    handleAddRewardItem={handleAddRewardItem}
                 />
             )}
         </React.Fragment>

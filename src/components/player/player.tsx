@@ -66,6 +66,7 @@ const Player = () => {
                             <TaskConstructorContainer
                                 config={PLAYER_CONFIG}
                                 taskIdForLoad={currentTaskId}
+                                setId={setId}
                             />
                         </div>
                     ) : (

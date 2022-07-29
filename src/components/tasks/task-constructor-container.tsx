@@ -14,9 +14,10 @@ import { ITaskSettings } from "../../types/ITaskSettings";
 interface IProps {
     config: ITaskConstructorConfig;
     taskIdForLoad?: string;
+    setId?: string;
 }
 
-const TaskConstructorContainer = ({ config, taskIdForLoad }: IProps) => {
+const TaskConstructorContainer = ({ config, taskIdForLoad, setId }: IProps) => {
     let { id } = useParams();
     const [currentStep, setCurrentStep] = useState(0);
     const [isTaskLoading, setIsTaskLoading] = useState(false);
@@ -157,7 +158,7 @@ const TaskConstructorContainer = ({ config, taskIdForLoad }: IProps) => {
             answers: selectedAnswersIds,
         };
 
-        AnswersAPI.checkCorrectAnswers(taskIdForLoad || id || "", dto)
+        AnswersAPI.checkCorrectAnswers(taskIdForLoad || id || "", dto, setId)
             .then((response) => {
                 if (response.data.status) {
                     toast.success("Верный ответ");

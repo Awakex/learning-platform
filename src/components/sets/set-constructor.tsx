@@ -3,6 +3,8 @@ import React from "react";
 import { ISet } from "../../types/ISet";
 import TaskTransfer from "../tasks/task-transfer/task-transfer";
 import styles from "./styles.module.scss";
+import RewardConstructor from "../reward-constructor/reward-constructor";
+import { IReward } from "../../types/IReward";
 
 const { Step } = Steps;
 
@@ -12,6 +14,7 @@ interface IProps {
     handleSaveTasks: (taskIds: string[]) => void;
     setCurrentStep: (payload: number) => void;
     handleSaveInformation: (payload: ISet) => void;
+    handleAddRewardItem: (reward: IReward) => void;
 }
 
 const SetConstructor = ({
@@ -20,6 +23,7 @@ const SetConstructor = ({
     currentStep,
     setCurrentStep,
     handleSaveInformation,
+    handleAddRewardItem,
 }: IProps) => {
     return (
         <div className={styles.SetConstructorWrapper}>
@@ -34,6 +38,7 @@ const SetConstructor = ({
                 >
                     <Step status="process" title="Информация" />
                     <Step status="process" title="Задания" />
+                    <Step status="process" title="Награда" />
                 </Steps>
 
                 {currentStep === 0 && (
@@ -75,6 +80,10 @@ const SetConstructor = ({
                         handleSave={handleSaveTasks}
                         set={set}
                     />
+                )}
+
+                {currentStep === 2 && (
+                    <RewardConstructor handleAddItem={handleAddRewardItem} rewards={set?.rewards} />
                 )}
             </div>
         </div>
