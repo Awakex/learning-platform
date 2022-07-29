@@ -55,10 +55,6 @@ const SetConstructorContainer = () => {
             .finally(() => setIsLoading(false));
     };
 
-    if (isLoading) {
-        return <Spin tip="Загрузка..." size={"large"} />;
-    }
-
     return isLoading ? (
         <Spin tip="Загрузка..." size={"large"} />
     ) : (

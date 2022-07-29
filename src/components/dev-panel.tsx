@@ -25,6 +25,7 @@ const DevPanel = () => {
                 <Link to={RoutePaths.APP.OWNER}>OWNER</Link>
                 <Link to={RoutePaths.TASKS.ROOT}>TASKS</Link>
                 <Link to={RoutePaths.SETS.ROOT}>SETS</Link>
+                <Link to={RoutePaths.ITEMS.ROOT}>ITEMS</Link>
             </div>
         </div>
     );

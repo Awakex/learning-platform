@@ -8,6 +8,7 @@ interface IAppSlice {
     isLoginLoading: boolean;
     isLoginModalOpen: boolean;
     isUserLoading: boolean;
+    isAppLoading: boolean;
     role: number;
     user: User | undefined;
 }
@@ -17,6 +18,7 @@ const initialState: IAppSlice = {
     isLoginLoading: false,
     isLoginModalOpen: false,
     isUserLoading: false,
+    isAppLoading: true,
     role: Roles.GUEST,
     user: undefined,
 };
@@ -27,6 +29,9 @@ const AppSlice = createSlice({
     reducers: {
         toggleAuthenticate: (state) => {
             state.isAuthenticated = !state.isAuthenticated;
+        },
+        toggleAppLoading: (state, action) => {
+            state.isAppLoading = action.payload;
         },
         logOut: (state) => {
             localStorage.removeItem("token");
@@ -74,13 +79,15 @@ const AppSlice = createSlice({
             state.role = Roles[user.role.value];
             state.isUserLoading = false;
             state.isAuthenticated = true;
+            state.isAppLoading = false;
         });
         builder.addCase(loadUser.rejected, (state, action: any) => {
             state.isUserLoading = false;
+            state.isAppLoading = false;
         });
     },
 });
 
-export const { toggleAuthenticate, logOut, toggleLoginModal } = AppSlice.actions;
+export const { toggleAuthenticate, logOut, toggleLoginModal, toggleAppLoading } = AppSlice.actions;
 
 export default AppSlice.reducer;

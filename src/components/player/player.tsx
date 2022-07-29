@@ -6,11 +6,15 @@ import { SetsAPI } from "../../core/api/sets";
 import { toast } from "react-toastify";
 import { ISet } from "../../types/ISet";
 import { AxiosResponse } from "axios";
-import { Spin } from "antd";
+import { Spin, Steps } from "antd";
+import styles from "./styles.module.scss";
+
+const { Step } = Steps;
 
 const Player = () => {
     let { setId } = useParams();
     const [currentTaskId, setCurrentTaskId] = useState<string | undefined>(undefined);
+    const [currentStep, setCurrentStep] = useState(-1);
     const [set, setSet] = useState<ISet | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -28,12 +32,16 @@ const Player = () => {
         SetsAPI.getSet(setId)
             .then((response: AxiosResponse<ISet>) => {
                 setSet(response.data);
-                if (response.data.tasks && response.data.tasks[0]) {
-                    setCurrentTaskId(response.data.tasks[0]);
-                }
+                setCurrentStep(0);
             })
             .finally(() => setIsLoading(false));
     };
+
+    useEffect(() => {
+        if (set?.tasks && set?.tasks[currentStep]) {
+            setCurrentTaskId(set?.tasks[currentStep]);
+        }
+    }, [currentStep]);
 
     return (
         <React.Fragment>
@@ -42,25 +50,24 @@ const Player = () => {
             ) : (
                 <React.Fragment>
                     {currentTaskId ? (
-                        <React.Fragment>
-                            <div style={{ display: "flex" }}>
+                        <div className={styles.Player}>
+                            <Steps
+                                current={currentStep}
+                                onChange={setCurrentStep}
+                                className={styles.PlayerStepper}
+                                responsive={true}
+                                direction={"vertical"}
+                            >
                                 {set?.tasks?.map((task, index) => (
-                                    <p
-                                        onClick={() => {
-                                            setCurrentTaskId(task);
-                                            console.log(task);
-                                        }}
-                                        style={{ marginLeft: 15, cursor: "pointer" }}
-                                    >
-                                        {index + 1}
-                                    </p>
+                                    <Step key={task} />
                                 ))}
-                            </div>
+                            </Steps>
+
                             <TaskConstructorContainer
                                 config={PLAYER_CONFIG}
                                 taskIdForLoad={currentTaskId}
                             />
-                        </React.Fragment>
+                        </div>
                     ) : (
                         <h2>Нет данных</h2>
                     )}

@@ -5,6 +5,8 @@ import SetsCreate from "../components/sets/sets-create";
 import SetConstructorContainer from "../components/sets/set-constructor-container";
 import Player from "../components/player/player";
 import { TASKS_CONFIG } from "../components/tasks/config/tasks-config";
+import ItemsCreate from "../components/items/items-create";
+import ItemConstructorContainer from "../components/items/item-constructor/item-constructor-container";
 
 export const RoutePaths = {
     ROOT: "/",
@@ -28,6 +30,10 @@ export const RoutePaths = {
     PLAYER: {
         ROOT: "/player",
         PLAY_SET: "/play/:setId",
+    },
+    ITEMS: {
+        ROOT: "/items",
+        EDIT: "/items/edit/:id",
     },
 };
 
@@ -83,5 +89,17 @@ export const RouteComponents = [
         path: RoutePaths.PLAYER.PLAY_SET,
         element: <Player />,
         requiredRolePower: Roles.USER,
+    },
+    {
+        id: 13,
+        path: RoutePaths.ITEMS.ROOT,
+        element: <ItemsCreate />,
+        requiredRolePower: Roles.OWNER,
+    },
+    {
+        id: 14,
+        path: RoutePaths.ITEMS.EDIT,
+        element: <ItemConstructorContainer />,
+        requiredRolePower: Roles.OWNER,
     },
 ];

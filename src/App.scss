@@ -1,13 +1,15 @@
 .container {
-  box-shadow: 0 0 5px #253cd0, 0 0 15px #4385e3;
-  height: calc(100vh - 100px - 150px);
+  height: calc(100vh - 100px - 238px);
   padding: 20px;
 }
 
 .devpanel {
   display: flex;
   padding: 20px;
+  width: 100%;
   div {
+    display: flex;
+    flex-direction: column;
     border: 1px dashed lightgray;
     padding: 10px;
     margin-right: 10px;

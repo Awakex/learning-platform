@@ -1,0 +1,17 @@
+.Player {
+  display: flex;
+}
+
+.PlayerStepper {
+  width: 85px;
+  box-shadow: 0 0 10px #235cc2;
+  border: 2px solid #235cc2;
+  padding: 20px 20px 0;
+  border-radius: 10px;
+
+  @media screen and (max-width: 765px) {
+    display: none;
+  }
+}
+
+
