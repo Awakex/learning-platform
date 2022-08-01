@@ -26,6 +26,7 @@ const DevPanel = () => {
                 <Link to={RoutePaths.TASKS.ROOT}>TASKS</Link>
                 <Link to={RoutePaths.SETS.ROOT}>SETS</Link>
                 <Link to={RoutePaths.ITEMS.ROOT}>ITEMS</Link>
+                <Link to={RoutePaths.STORIES.CREATE}>STORIES</Link>
             </div>
         </div>
     );

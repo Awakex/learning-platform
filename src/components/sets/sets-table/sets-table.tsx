@@ -1,15 +1,15 @@
+import React, { useEffect, useState } from "react";
 import { Space, Table } from "antd";
 import Column from "antd/lib/table/Column";
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { TasksAPI } from "../../core/api/tasks";
-import { RoutePaths } from "../../routers";
+import { SetsAPI } from "../../../core/api/sets";
+import { RoutePaths } from "../../../routers";
 
-const TasksTable = () => {
+const SetsTable = () => {
     const [dataSource, setDataSource] = useState(undefined);
 
     const getTasks = () => {
-        TasksAPI.getTasks().then((response) => {
+        SetsAPI.getSets().then((response) => {
             setDataSource(response.data);
         });
     };
@@ -21,13 +21,16 @@ const TasksTable = () => {
     return (
         <Table dataSource={dataSource} rowKey={(record) => record._id}>
             <Column title="ID" dataIndex="_id" />
-            <Column title="Вопрос" dataIndex="question" />
+            <Column title="Название" dataIndex="title" />
             <Column
                 title="Действия"
                 render={(_: any, record: any) => (
                     <Space size="middle">
-                        <Link to={RoutePaths.TASKS.EDIT.replace(":id", record._id)}>
+                        <Link to={RoutePaths.SETS.EDIT.replace(":id", record._id)}>
                             Редактировать
+                        </Link>
+                        <Link to={RoutePaths.PLAYER.PLAY_SET.replace(":setId", record._id)}>
+                            Играть
                         </Link>
                     </Space>
                 )}
@@ -36,4 +39,4 @@ const TasksTable = () => {
     );
 };
 
-export default TasksTable;
+export default SetsTable;

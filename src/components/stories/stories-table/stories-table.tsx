@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table } from "antd";
 import Column from "antd/lib/table/Column";
+import { Space, Table } from "antd";
+import { StoriesAPI } from "../../../core/api/stories";
 import { Link } from "react-router-dom";
-import { SetsAPI } from "../../core/api/sets";
-import { RoutePaths } from "../../routers";
+import { RoutePaths } from "../../../routers";
 
-const SetsTable = () => {
+const StoriesTable = () => {
     const [dataSource, setDataSource] = useState(undefined);
 
     const getTasks = () => {
-        SetsAPI.getSets().then((response) => {
+        StoriesAPI.getStories().then((response) => {
             setDataSource(response.data);
         });
     };
@@ -21,16 +21,13 @@ const SetsTable = () => {
     return (
         <Table dataSource={dataSource} rowKey={(record) => record._id}>
             <Column title="ID" dataIndex="_id" />
-            <Column title="Название" dataIndex="title" />
+            <Column title="Название" dataIndex="name" />
             <Column
                 title="Действия"
                 render={(_: any, record: any) => (
                     <Space size="middle">
-                        <Link to={RoutePaths.SETS.EDIT.replace(":id", record._id)}>
+                        <Link to={RoutePaths.STORIES.EDIT.replace(":id", record._id)}>
                             Редактировать
-                        </Link>
-                        <Link to={RoutePaths.PLAYER.PLAY_SET.replace(":setId", record._id)}>
-                            Играть
                         </Link>
                     </Space>
                 )}
@@ -39,4 +36,4 @@ const SetsTable = () => {
     );
 };
 
-export default SetsTable;
+export default StoriesTable;

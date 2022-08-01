@@ -1,5 +1,4 @@
 import { Button, Form, InputNumber, Select, Space, Spin, Table } from "antd";
-import Input from "antd/lib/input/Input";
 import React, { useEffect, useState } from "react";
 import { ItemsAPI } from "../../core/api/items";
 import { IItem } from "../../types/IItem";
@@ -8,8 +7,7 @@ import { IItemType } from "../../types/IItemType";
 import { IReward } from "../../types/IReward";
 import styles from "./styles.module.scss";
 import Column from "antd/lib/table/Column";
-import { Link } from "react-router-dom";
-import { RoutePaths } from "../../routers";
+
 const { Option } = Select;
 
 interface IProps {

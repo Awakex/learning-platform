@@ -7,6 +7,8 @@ import Player from "../components/player/player";
 import { TASKS_CONFIG } from "../components/tasks/config/tasks-config";
 import ItemsCreate from "../components/items/items-create";
 import ItemConstructorContainer from "../components/items/item-constructor/item-constructor-container";
+import StoriesCreate from "../components/stories/stories-create/stories-create";
+import StoriesConstructorContainer from "../components/stories/stories-constructor/stories-constructor-container";
 
 export const RoutePaths = {
     ROOT: "/",
@@ -19,7 +21,6 @@ export const RoutePaths = {
     },
     TASKS: {
         ROOT: "/tasks",
-        CREATE: "/tasks/create",
         EDIT: "/tasks/edit/:id",
         PLAY: "/tasks/play",
     },
@@ -34,6 +35,12 @@ export const RoutePaths = {
     ITEMS: {
         ROOT: "/items",
         EDIT: "/items/edit/:id",
+    },
+    STORIES: {
+        ROOT: "/stories",
+        CREATE: "/stories/create",
+        EDIT: "/stories/edit/:id",
+        PLAY: "/stories/play/:id",
     },
 };
 
@@ -101,5 +108,17 @@ export const RouteComponents = [
         path: RoutePaths.ITEMS.EDIT,
         element: <ItemConstructorContainer />,
         requiredRolePower: Roles.OWNER,
+    },
+    {
+        id: 15,
+        path: RoutePaths.STORIES.CREATE,
+        element: <StoriesCreate />,
+        requiredRolePower: Roles.ADMIN,
+    },
+    {
+        id: 16,
+        path: RoutePaths.STORIES.EDIT,
+        element: <StoriesConstructorContainer />,
+        requiredRolePower: Roles.ADMIN,
     },
 ];

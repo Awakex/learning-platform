@@ -5,7 +5,7 @@ import { TasksAPI } from "../../../core/api/tasks";
 import { CreateTaskDto } from "../../../dtos/CreateTaskDto";
 import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "../../../routers";
-import TasksTable from "../../tasks-table/tasks-table";
+import TasksTable from "../tasks-table/tasks-table";
 import { TASK_TYPES } from "../../../types/TaskTypes";
 
 const { Option } = Select;
