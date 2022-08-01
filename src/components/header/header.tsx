@@ -3,14 +3,25 @@ import styles from "./styles.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Button } from "antd";
 import { logOut, toggleLoginModal } from "../../store/app/app-slice";
+import { useNavigate } from "react-router-dom";
+import { RoutePaths } from "../../routers";
 
 const Header = () => {
+    let navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { isAuthenticated } = useAppSelector((state) => state.app);
 
     return (
         <div className={styles.header}>
-            <p className={styles.title}>Project W</p>
+            <div>
+                <p className={styles.title} onClick={() => navigate("/")}>
+                    Project W
+                </p>
+            </div>
+
+            <div>
+                <p onClick={() => navigate(RoutePaths.STORIES.ROOT)}>Сюжет</p>
+            </div>
 
             <div>
                 {isAuthenticated ? (

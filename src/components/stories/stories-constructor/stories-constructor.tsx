@@ -3,6 +3,9 @@ import { IStory } from "../../../types/IStory";
 import styles from "./styles.module.scss";
 import { Button, Form, Input, Steps } from "antd";
 import { StoryDto } from "../../../dtos/StoryDto";
+import Story, { IStoryAttachSubstory } from "../story";
+import { ISubstoryForm } from "../../../types/ISubstoryForm";
+
 const { Step } = Steps;
 
 interface IProps {
@@ -10,6 +13,9 @@ interface IProps {
     currentStep: number;
     setCurrentStep: (payload: number) => void;
     handleSaveInformation: (payload: StoryDto) => void;
+    storyModalIsOpen: boolean;
+    setStoryModalIsOpen: (payload: boolean) => void;
+    handleSaveSubstory: (substory: ISubstoryForm, payload?: IStoryAttachSubstory) => void;
 }
 
 const StoriesConstructor = ({
@@ -17,6 +23,9 @@ const StoriesConstructor = ({
     currentStep,
     setCurrentStep,
     handleSaveInformation,
+    setStoryModalIsOpen,
+    storyModalIsOpen,
+    handleSaveSubstory,
 }: IProps) => {
     return (
         <div className={styles.StoriesConstructorWrapper}>
@@ -60,6 +69,22 @@ const StoriesConstructor = ({
                             </Button>
                         </Form.Item>
                     </Form>
+                )}
+
+                {currentStep === 1 && (
+                    <React.Fragment>
+                        {story ? (
+                            <Story
+                                story={story}
+                                isEdit={true}
+                                storyModalIsOpen={storyModalIsOpen}
+                                setStoryModalIsOpen={setStoryModalIsOpen}
+                                handleSaveSubstory={handleSaveSubstory}
+                            />
+                        ) : (
+                            <p>Нет сюжета</p>
+                        )}
+                    </React.Fragment>
                 )}
             </div>
         </div>

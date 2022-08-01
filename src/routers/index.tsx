@@ -9,6 +9,8 @@ import ItemsCreate from "../components/items/items-create";
 import ItemConstructorContainer from "../components/items/item-constructor/item-constructor-container";
 import StoriesCreate from "../components/stories/stories-create/stories-create";
 import StoriesConstructorContainer from "../components/stories/stories-constructor/stories-constructor-container";
+import StoriesList from "../components/stories/stories-list/stories-list";
+import StoryContainer from "../components/stories/story-container";
 
 export const RoutePaths = {
     ROOT: "/",
@@ -120,5 +122,23 @@ export const RouteComponents = [
         path: RoutePaths.STORIES.EDIT,
         element: <StoriesConstructorContainer />,
         requiredRolePower: Roles.ADMIN,
+    },
+    {
+        id: 17,
+        path: RoutePaths.STORIES.ROOT,
+        element: <StoriesList />,
+        requiredRolePower: Roles.USER,
+    },
+    {
+        id: 18,
+        path: RoutePaths.STORIES.ROOT,
+        element: <StoriesList />,
+        requiredRolePower: Roles.USER,
+    },
+    {
+        id: 19,
+        path: RoutePaths.STORIES.PLAY,
+        element: <StoryContainer />,
+        requiredRolePower: Roles.USER,
     },
 ];

@@ -6,12 +6,16 @@ import { StoriesAPI } from "../../../core/api/stories";
 import { StoryDto } from "../../../dtos/StoryDto";
 import { toast } from "react-toastify";
 import { Spin } from "antd";
+import { ISubstory } from "../../../types/ISubstory";
+import { ISubstoryForm } from "../../../types/ISubstoryForm";
+import { IStoryAttachSubstory, StoryAddTypes } from "../story";
 
 const StoriesConstructorContainer = () => {
     let { id } = useParams();
     const [story, setStory] = useState<IStory | undefined>(undefined);
     const [currentStep, setCurrentStep] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [storyModalIsOpen, setStoryModalIsOpen] = useState(false);
 
     useEffect(() => {
         getStory();
@@ -38,6 +42,39 @@ const StoriesConstructorContainer = () => {
             .finally(() => setIsLoading(false));
     };
 
+    const handleSaveSubstory = (substory: ISubstoryForm, payload?: IStoryAttachSubstory) => {
+        let dto: ISubstory = {
+            _id: substory.substoryId,
+            ...substory,
+        };
+
+        if (!payload) {
+            if (!dto._id) return;
+            StoriesAPI.updateSubstory(dto._id, dto)
+                .then(() => {
+                    toast.success("Подсюжет обновлен");
+                    getStory();
+                })
+                .finally(() => setStoryModalIsOpen(false));
+
+            return;
+        } else if (payload.type === StoryAddTypes.ADD_SUBSTORY_TO_BLOCK) {
+            StoriesAPI.attachSubstory(story?._id || "", dto, payload.blockId)
+                .then(() => {
+                    toast.success("Подсюжет добавлен и обновлен");
+                    getStory();
+                })
+                .finally(() => setStoryModalIsOpen(false));
+        } else if (payload.type === StoryAddTypes.ADD_SUBSTORY_BLOCK) {
+            StoriesAPI.attachSubstory(story?._id || "", dto)
+                .then(() => {
+                    toast.success("Подсюжет добавлен и обновлен");
+                    getStory();
+                })
+                .finally(() => setStoryModalIsOpen(false));
+        }
+    };
+
     return isLoading ? (
         <Spin tip="Загрузка..." size={"large"} />
     ) : (
@@ -46,6 +83,9 @@ const StoriesConstructorContainer = () => {
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             handleSaveInformation={handleSaveInformation}
+            handleSaveSubstory={handleSaveSubstory}
+            storyModalIsOpen={storyModalIsOpen}
+            setStoryModalIsOpen={setStoryModalIsOpen}
         />
     );
 };

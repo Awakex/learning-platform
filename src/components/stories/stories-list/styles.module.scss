@@ -1,0 +1,13 @@
+.Story {
+  border: 2px solid lightblue;
+  box-shadow: 0 0 5px lightblue;
+  max-width: 30%;
+  padding: 40px;
+  text-align: center;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: box-shadow .2s ease;
+  &:hover {
+    box-shadow: 0 0 15px lightblue;
+  }
+}
